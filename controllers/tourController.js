@@ -13,7 +13,7 @@ exports.aliasTopTours = (req, res, next) => {
 
 exports.getAllTours = async (req, res) => {
   try {
-    console.log(req.query);
+    // console.log(req.query);
     // Execute query
     const features = new APIFeatures(Tour.find(), req.query)
       .filter()
@@ -60,7 +60,7 @@ exports.createTour = async (req, res) => {
   } catch (error) {
     res.status(400).json({
       status: 'fail',
-      message: 'Invalid data send'
+      message: error.message
     });
   }
 };
