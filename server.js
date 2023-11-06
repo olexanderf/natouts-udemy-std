@@ -17,8 +17,7 @@ mongoose
     useCreateIndex: true,
     useFindAndModify: false
   })
-  .then(() => console.log('DB Connection succesfull'));
-
+  .then(() => console.log('DB Connection successful'));
 // console.log(DB);
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
