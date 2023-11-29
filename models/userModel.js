@@ -30,7 +30,8 @@ const userSchema = new mongoose.Schema({
     type: String,
     require: [true, 'Please provide a password'],
     // maxlenght: [15, 'A password must have a less or equal then 10 characters'],
-    minlength: [8, 'A password must have a more or equal then 8 characters']
+    minlength: [8, 'A password must have a more or equal then 8 characters'],
+    select: false
   },
   passwordConfirm: {
     type: String,
@@ -50,10 +51,18 @@ userSchema.pre('save', async function (next) {
   if (!this.isModified('password')) return next();
 
   this.password = await bcrypt.hash(this.password, 12);
+  // cancel persisting passwordConfirm in DB
   this.passwordConfirm = undefined;
 
   next();
 });
+
+userSchema.methods.correctPassword = async function (
+  candidatePassword,
+  userPassword
+) {
+  return await bcrypt.compare(candidatePassword, userPassword);
+};
 
 const User = mongoose.model('User', userSchema);
 module.exports = User;
