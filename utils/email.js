@@ -15,10 +15,11 @@ const sendEmail = async (options) => {
     from: 'Oleksander <hello@oleksander.io>',
     to: options.email,
     subject: options.subject,
-    text: options.message
-    // html:
+    text: options.text
+    // html: options.message
   };
   // 3) Actually send the mail
+  // console.log(mailOptions);
   await transporter.sendMail(mailOptions);
 };
 
