@@ -3,7 +3,11 @@ const Review = require('../models/reviewModel');
 const AppError = require('../utils/appError');
 
 exports.getAllReviews = catchAsync(async (req, res, next) => {
-  const reviews = await Review.find();
+  let filter = {};
+  if (req.params.tourId) {
+    filter = { tour: req.params.tourId };
+  }
+  const reviews = await Review.find(filter);
   res.status(200).json({
     status: 'success',
     result: reviews.length,
@@ -14,16 +18,19 @@ exports.getAllReviews = catchAsync(async (req, res, next) => {
 });
 
 exports.createReview = catchAsync(async (req, res, next) => {
-  const { tour, review, rating } = req.body;
+  // const { tour, review, rating } = req.body;
 
-  if (!review) return next(new AppError('You must fill review field', 400));
-  if (!tour) return next(new AppError('Please select tour for review', 400));
+  if (!req.body.review)
+    return next(new AppError('You must fill review field', 400));
+  // if (!tour) return next(new AppError('Please select tour for review', 400));
+  if (!req.body.tour) req.body.tour = req.params.tourId;
+  if (!req.body.user) req.body.user = req.user.id;
 
   const newReview = await Review.create({
-    review: review,
-    rating: rating,
-    tour: tour,
-    user: req.user.id
+    review: req.body.review,
+    rating: req.body.rating,
+    tour: req.body.tour,
+    user: req.body.user
   });
 
   res.status(201).json({
