@@ -61,12 +61,7 @@ exports.createUser = (req, res) => {
     message: 'This route is not yat defined!'
   });
 };
-exports.getUser = (req, res) => {
-  res.status(500).json({
-    status: 'error',
-    message: 'This route is not yat defined!'
-  });
-};
+exports.getUser = factory.getOne(User);
 // Do NOT update password with this
 exports.updateUser = factory.updateOne(User);
 exports.deleteUser = factory.deleteOne(User);
