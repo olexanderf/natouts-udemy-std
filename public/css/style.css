@@ -604,9 +604,22 @@ body {
   display: grid;
   grid-column-gap: 6rem;
   grid-auto-flow: column;
+  overflow-x: hidden;
+  /* -ms-scroll-snap-type: x mandatory;
+  scroll-snap-type: x mandatory; */
+}
+.reviews:hover {
   overflow-x: scroll;
-  -ms-scroll-snap-type: x mandatory;
-  scroll-snap-type: x mandatory;
+}
+.reviews::-webkit-scrollbar {
+  background: #e4e4e9;
+  border: 2px solid rgba(0, 0, 0, 0.2);
+  height: 12px;
+}
+.reviews::-webkit-scrollbar-thumb {
+  border-radius: 100px;
+  background: #a9a9ad;
+  border: 1px solid rgba(0, 0, 0, 0.2);
 }
 .reviews__card {
   width: 30rem;
