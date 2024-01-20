@@ -12,10 +12,14 @@ const login = async (email, password) => {
         password
       }
     });
-
-    console.log(res);
+    if (res.data.status === 'success') {
+      alert('Logged in successfuly!');
+      window.setTimeout(() => {
+        location.assign('/');
+      }, 1500);
+    }
   } catch (error) {
-    console.log(error);
+    alert(error.response.data.message);
   }
 };
 

@@ -3,11 +3,16 @@
   "version": "1.0.0",
   "description": "Learning next and mongo db",
   "main": "app.js",
+  "targets": {
+    "main": false
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon server.js",
     "prod": "NODE_ENV=production nodemon server.js",
-    "debug": "node --inspect server.js"
+    "debug": "node --inspect server.js",
+    "watch:js": "parcel watch ./public/js/index.js --dist-dir ./public/js/bundled",
+    "build:js": "parcel build ./public/js/index.js --dist-dir ./public/js/bundled"
   },
   "author": "",
   "license": "ISC",
@@ -40,7 +45,8 @@
     "eslint-plugin-jsx-a11y": "^6.7.1",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-prettier": "^5.0.1",
-    "eslint-plugin-react": "^7.33.2"
+    "eslint-plugin-react": "^7.33.2",
+    "parcel": "^2.11.0"
   },
   "engines": {
     "node": ">=11.0.0"
