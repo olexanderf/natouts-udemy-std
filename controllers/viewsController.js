@@ -29,7 +29,13 @@ exports.getTour = catchAsync(async (req, res, next) => {
 });
 
 exports.getLoginPage = catchAsync(async (req, res, next) => {
-  res.status(200).render('login', {
-    title: 'Log into your account'
-  });
+  res
+    .status(200)
+    .set(
+      'Content-Security-Policy',
+      "script-src 'self' https://cdn.jsdelivr.net"
+    )
+    .render('login', {
+      title: 'Log into your account'
+    });
 });
