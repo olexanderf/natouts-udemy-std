@@ -7,6 +7,7 @@ const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
 const hpp = require('hpp');
 const cors = require('cors');
+const cookieParser = require('cookie-parser');
 
 const tourRouter = require('./routes/tourRoutes');
 const userRouter = require('./routes/userRoutes');
@@ -24,7 +25,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(
   cors({
-    origin: 'http://localhost:3000',
+    origin: 'http://127.0.0.1:3000',
     credentials: true
   })
 );
@@ -44,6 +45,7 @@ app.use(
 if (process.env.NODE_ENV === 'development') app.use(morgan('dev'));
 
 app.use(express.json({ limit: '10kb' }));
+app.use(cookieParser());
 
 // Data sanitization against NoSQL injection
 app.use(mongoSanitize());
@@ -73,7 +75,7 @@ const limiter = rateLimit({
 app.use('/api', limiter);
 app.use((req, res, next) => {
   req.requstTime = new Date().toISOString();
-  // console.log(req.headers);
+  console.log(req.cookies);
   next();
 });
 
