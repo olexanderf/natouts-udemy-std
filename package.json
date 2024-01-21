@@ -6,12 +6,13 @@
   "targets": {
     "main": false
   },
+  "browserslist": "last 2 versions",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon server.js",
     "prod": "NODE_ENV=production nodemon server.js",
     "debug": "node --inspect server.js",
-    "watch:js": "parcel watch ./public/js/index.js --dist-dir ./public/js/bundled",
+    "watch:js": "parcel watch --no-hmr ./public/js/index.js --dist-dir ./public/js/bundled",
     "build:js": "parcel build ./public/js/index.js --dist-dir ./public/js/bundled"
   },
   "author": "",
@@ -41,6 +42,7 @@
     "xss-clean": "^0.1.4"
   },
   "devDependencies": {
+    "buffer": "^6.0.3",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-import": "^2.28.1",

@@ -36,7 +36,15 @@ app.use(
       defaultSrc: ["'self'", 'https:', 'http:', 'data:', 'ws:'],
       baseUri: ["'self'"],
       fontSrc: ["'self'", 'https:', 'http:', 'data:'],
-      scriptSrc: ["'self'", 'https:', 'http:', 'blob:'],
+      scriptSrc: [
+        "'self'",
+        'https:',
+        'http:',
+        'blob:',
+        'https://*.cloudflare.com',
+        'https://*.stripe.com',
+        'https://*.mapbox.com'
+      ],
       styleSrc: ["'self'", "'unsafe-inline'", 'https:', 'http:']
     }
   })
