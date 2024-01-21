@@ -1,6 +1,7 @@
 /* eslint-disable */
 
 import axios from 'axios';
+import { showAlert } from './alerts';
 
 export const login = async (email, password) => {
   try {
@@ -13,12 +14,12 @@ export const login = async (email, password) => {
       }
     });
     if (res.data.status === 'success') {
-      alert('Logged in successfuly!');
+      showAlert('success', 'Logged in successfuly!');
       window.setTimeout(() => {
-        location.assign('/');
-      }, 1500);
+        location.assign('/')
+      }, 1500)
     }
   } catch (error) {
-    alert(error.response.data.message);
+    showAlert('error', error.response.data.message);
   }
 };

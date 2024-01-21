@@ -332,16 +332,16 @@ var _webUrlSearchParamsJs = require("core-js/modules/web.url-search-params.js");
 var _runtime = require("regenerator-runtime/runtime");
 var _loginJs = require("./login.js");
 var _mapboxJs = require("./mapbox.js");
-try {
-    var locations = JSON.parse(document.getElementById("map").dataset.locations);
+var mapBox = document.getElementById("map");
+var loginForm = document.querySelector(".form");
+if (mapBox) {
+    var locations = JSON.parse(mapBox.dataset.locations);
     (0, _mapboxJs.displayMap)(locations);
-} catch (error) {
-    console.log(error);
 }
-document.querySelector(".form").addEventListener("submit", function(e) {
-    e.preventDefault();
+if (loginForm) loginForm.addEventListener("submit", function(e) {
     var email = document.getElementById("email").value;
     var password = document.getElementById("password").value;
+    e.preventDefault();
     (0, _loginJs.login)(email, password);
 });
 
@@ -13086,6 +13086,7 @@ var _asyncToGenerator = require("@swc/helpers/_/_async_to_generator");
 var _tsGenerator = require("@swc/helpers/_/_ts_generator");
 var _axios = require("axios");
 var _axiosDefault = parcelHelpers.interopDefault(_axios);
+var _alerts = require("./alerts");
 var login = function() {
     var _ref = (0, _asyncToGenerator._)(function(email, password) {
         var res, error;
@@ -13112,7 +13113,7 @@ var login = function() {
                 case 1:
                     res = _state.sent();
                     if (res.data.status === "success") {
-                        alert("Logged in successfuly!");
+                        (0, _alerts.showAlert)("success", "Logged in successfuly!");
                         window.setTimeout(function() {
                             location.assign("/");
                         }, 1500);
@@ -13123,7 +13124,7 @@ var login = function() {
                     ];
                 case 2:
                     error = _state.sent();
-                    alert(error.response.data.message);
+                    (0, _alerts.showAlert)("error", error.response.data.message);
                     return [
                         3,
                         3
@@ -13140,7 +13141,7 @@ var login = function() {
     };
 }();
 
-},{"@swc/helpers/_/_async_to_generator":"aigmt","@swc/helpers/_/_ts_generator":"b64dK","axios":"2azY5","@parcel/transformer-js/src/esmodule-helpers.js":"cjLfb"}],"aigmt":[function(require,module,exports) {
+},{"@swc/helpers/_/_async_to_generator":"aigmt","@swc/helpers/_/_ts_generator":"b64dK","axios":"2azY5","@parcel/transformer-js/src/esmodule-helpers.js":"cjLfb","./alerts":"l0WSD"}],"aigmt":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "_async_to_generator", function() {
@@ -18812,7 +18813,27 @@ Object.entries(HttpStatusCode).forEach(function(param) {
 });
 exports.default = HttpStatusCode;
 
-},{"@swc/helpers/_/_sliced_to_array":"cYAxZ","@parcel/transformer-js/src/esmodule-helpers.js":"cjLfb"}],"1A1ux":[function(require,module,exports) {
+},{"@swc/helpers/_/_sliced_to_array":"cYAxZ","@parcel/transformer-js/src/esmodule-helpers.js":"cjLfb"}],"l0WSD":[function(require,module,exports) {
+/* eslint-disable */ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "hideAlert", function() {
+    return hideAlert;
+});
+parcelHelpers.export(exports, "showAlert", function() {
+    return showAlert;
+});
+var hideAlert = function() {
+    var el = document.querySelector(".alert");
+    if (el) el.parentElement.removeChild(el);
+};
+var showAlert = function(type, message) {
+    hideAlert();
+    var markup = '<div class="alert alert--'.concat(type, '">').concat(message, "</div>");
+    document.querySelector("body").insertAdjacentHTML("afterbegin", markup);
+    window.setTimeout(hideAlert, 5000);
+};
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"cjLfb"}],"1A1ux":[function(require,module,exports) {
 /* eslint-disable */ // console.log(locations);
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
