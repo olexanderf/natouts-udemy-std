@@ -578,7 +578,71 @@ function hmrAccept(bundle /*: ParcelRequire */ , id /*: string */ ) {
 }
 
 },{}],"cMUg4":[function(require,module,exports) {
-/* eslint-disable */ console.log("Hello from parcel!");
+/* eslint-disable */ // import 'core-js';
+var _loginJs = require("./login.js");
+document.querySelector(".form").addEventListener("submit", (e)=>{
+    e.preventDefault();
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+    (0, _loginJs.login)(email, password);
+});
+
+},{"./login.js":"iGn9D"}],"iGn9D":[function(require,module,exports) {
+/* eslint-disable */ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "login", ()=>login);
+var _axios = require("axios");
+var _axiosDefault = parcelHelpers.interopDefault(_axios);
+const login = async (email, password)=>{
+    try {
+        const res = await (0, _axiosDefault.default)({
+            method: "POST",
+            url: "http://127.0.0.1:3000/api/v1/users/login",
+            data: {
+                email,
+                password
+            }
+        });
+        if (res.data.status === "success") {
+            alert("Logged in successfuly!");
+            window.setTimeout(()=>{
+                location.assign("/");
+            }, 1500);
+        }
+    } catch (error) {
+        alert(error.response.data.message);
+    }
+};
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"av7au","axios":"axios"}],"av7au":[function(require,module,exports) {
+exports.interopDefault = function(a) {
+    return a && a.__esModule ? a : {
+        default: a
+    };
+};
+exports.defineInteropFlag = function(a) {
+    Object.defineProperty(a, "__esModule", {
+        value: true
+    });
+};
+exports.exportAll = function(source, dest) {
+    Object.keys(source).forEach(function(key) {
+        if (key === "default" || key === "__esModule" || Object.prototype.hasOwnProperty.call(dest, key)) return;
+        Object.defineProperty(dest, key, {
+            enumerable: true,
+            get: function() {
+                return source[key];
+            }
+        });
+    });
+    return dest;
+};
+exports.export = function(dest, destName, get) {
+    Object.defineProperty(dest, destName, {
+        enumerable: true,
+        get: get
+    });
+};
 
 },{}]},["apyIs","cMUg4"], "cMUg4", "parcelRequire11c7")
 
