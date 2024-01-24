@@ -65,26 +65,39 @@ exports.login = catchAsync(async (req, res, next) => {
   createSendToken(user, 200, res);
 });
 
-exports.isLoggedIn = catchAsync(async (req, res, next) => {
+exports.isLoggedIn = async (req, res, next) => {
   if (req.cookies.jwt) {
-    const decoded = await promisify(jwt.verify)(
-      req.cookies.jwt,
-      process.env.JWT_SECRET
-    );
+    try {
+      const decoded = await promisify(jwt.verify)(
+        req.cookies.jwt,
+        process.env.JWT_SECRET
+      );
 
-    // 3) Check if user still exists
-    const currentUser = await User.findById(decoded.id);
+      // 3) Check if user still exists
+      const currentUser = await User.findById(decoded.id);
 
-    if (!currentUser) return next();
+      if (!currentUser) return next();
 
-    // 4) Check if user changed password after the token was issued
-    if (currentUser.changedPasswordAfter(decoded.iat)) {
+      // 4) Check if user changed password after the token was issued
+      if (currentUser.changedPasswordAfter(decoded.iat)) {
+        return next();
+      }
+      res.locals.user = currentUser;
       return next();
+    } catch (error) {
+      return next;
     }
-    res.locals.user = currentUser;
   }
   next();
-});
+};
+
+exports.logout = async (req, res) => {
+  console.log(res);
+  res.clearCookie('jwt');
+  res.status(200).json({
+    status: 'success'
+  });
+};
 
 exports.protect = catchAsync(async (req, res, next) => {
   // 1) Getting token and check if it`s there
