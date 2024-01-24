@@ -1,9 +1,8 @@
 /* eslint-disable */
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
-import { login } from './login.js';
+import { login, logout } from './login.js';
 import { displayMap } from './mapbox.js';
-import { logout } from '../../controllers/authController.js';
 
 const mapBox = document.getElementById('map');
 const loginForm = document.querySelector('.form');
