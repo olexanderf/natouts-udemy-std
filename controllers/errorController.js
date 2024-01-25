@@ -72,14 +72,15 @@ const handleJWTExpiredError = () =>
 module.exports = (err, req, res, next) => {
   err.statusCode = err.statusCode || 500;
   err.status = err.status || 'error';
+  console.log(err);
 
   if (process.env.NODE_ENV === 'development') {
     sendErrorDev(err, req, res);
   } else if (process.env.NODE_ENV === 'production') {
     // let error = { ...err };
     let error = Object.assign(err);
+    // console.log(error);
     // error.message = err.message;
-    // console.log(err);
 
     if (err.name === 'CastError') error = handleCastErrorDB(error);
     if (err.name === 'JsonWebTokenError') error = handleJWTError();
