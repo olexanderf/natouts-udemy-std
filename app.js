@@ -83,7 +83,7 @@ const limiter = rateLimit({
 app.use('/api', limiter);
 app.use((req, res, next) => {
   req.requstTime = new Date().toISOString();
-  console.log(req.cookies);
+  // console.log(req.cookies);
   next();
 });
 
