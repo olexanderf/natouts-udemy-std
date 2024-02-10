@@ -93,7 +93,7 @@ exports.isLoggedIn = async (req, res, next) => {
 };
 
 exports.logout = async (req, res) => {
-  console.log(res);
+  // console.log(res);
   res.clearCookie('jwt');
   res.status(200).json({
     status: 'success'

@@ -4,12 +4,14 @@ import 'regenerator-runtime/runtime';
 import { login, logout } from './login.js';
 import { displayMap } from './mapbox.js';
 import { updateSettings } from './updateSettings.js';
+import { bookTour } from './stripe.js';
 
 const mapBox = document.getElementById('map');
 const loginForm = document.querySelector('.form--login');
 const logoutBtn = document.querySelector('.nav__el--logout');
 const userDataForm = document.querySelector('.form-user-data');
 const userPasswordForm = document.querySelector('.form-user-password');
+const bookBtn = document.getElementById('book-tour');
 
 if (mapBox) {
   const locations = JSON.parse(mapBox.dataset.locations);
