@@ -9,6 +9,8 @@ export const bookTour = async (tourId) => {
       `http://127.0.0.1:3000/api/v1/booking/checkout-session/${tourId}`
     );
     console.log(session);
+
+    location.assign(session.data.data.invoiceUrl);
     // 2) Create checkout form + charh credit card
   } catch (error) {
     console.log(error);

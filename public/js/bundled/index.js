@@ -19073,6 +19073,7 @@ var bookTour = function() {
                 case 1:
                     session = _state.sent();
                     console.log(session);
+                    location.assign(session.data.data.invoiceUrl);
                     return [
                         3,
                         3

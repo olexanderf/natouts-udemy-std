@@ -9,16 +9,14 @@ exports.getCheckoutSession = catchAsync(async (req, res, next) => {
   // 2) Create checkout session
   const signatureObj = {
     merchantAccount: process.env.MERCHANT_LOGIN,
-    merchantAuthType: 'SimpleSignature',
-    merchantDomainName: 'https://remote-demining-kappa.vercel.app',
+    merchantDomainName: 'https://www.natours.dev',
     orderReference: `OR${Date.now()}`,
     orderDate: Date.now(),
     amount: tour.price,
     currency: 'UAH',
-    orderTimeout: '49000',
     productName: [`${tour.name} Tour`],
-    productPrice: [tour.price],
-    productCount: [1]
+    productCount: [1],
+    productPrice: [tour.price]
   };
   /* console.log({ signatureObj });
   console.log(
@@ -37,6 +35,10 @@ exports.getCheckoutSession = catchAsync(async (req, res, next) => {
 
   const checkoutObj = {
     ...signatureObj,
+    transactionType: 'CREATE_INVOICE',
+    merchantAuthType: 'SimpleSignature',
+    apiVersion: 1,
+    orderTimeout: 49000,
     merchantSignature: hash,
     returnUrl: `${req.protocol}://${req.get('host')}/`
   };
@@ -47,15 +49,22 @@ exports.getCheckoutSession = catchAsync(async (req, res, next) => {
       next();
     }
   ); */
-  const session = await axios.post(
-    'https://secure.wayforpay.com/pay',
-    checkoutObj
-  );
-  console.log(session);
+  const session = await axios({
+    method: 'POST',
+    url: 'https://api.wayforpay.com/api',
+    data: {
+      ...checkoutObj
+    }
+  });
+  // console.log(session);
   // 3) Create session as responst
-  // console.log(checkoutObj);
+  // console.log(signatureString);
+  /*   res.status(200).render('stripe', (err, html) => {
+    res.send(session);
+  }); */
   res.status(200).json({
-    status: 'success'
-    // session
+    status: 'success',
+    data: session.data
+    // data: { signatureString, checkoutObj }
   });
 });
