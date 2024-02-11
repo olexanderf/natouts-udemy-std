@@ -10,7 +10,7 @@ exports.getCheckoutSession = catchAsync(async (req, res, next) => {
   const signatureObj = {
     merchantAccount: process.env.MERCHANT_LOGIN,
     merchantDomainName: 'https://www.natours.dev',
-    orderReference: `OR${Date.now()}`,
+    orderReference: `${req.params.tourId}`,
     orderDate: Date.now(),
     amount: tour.price,
     currency: 'UAH',
@@ -40,7 +40,9 @@ exports.getCheckoutSession = catchAsync(async (req, res, next) => {
     apiVersion: 1,
     orderTimeout: 49000,
     merchantSignature: hash,
-    returnUrl: `${req.protocol}://${req.get('host')}/`
+    returnUrl: `${req.protocol}://${req.get('host')}/`,
+    clientEmail: req.user.email,
+    serviceUrl: `${req.protocol}://${req.get('host')}/`
   };
   /*   const session = express().post(
     'https://secure.wayforpay.com/pay',
