@@ -2,6 +2,7 @@ const crypto = require('crypto');
 const { default: axios } = require('axios');
 const catchAsync = require('../utils/catchAsync');
 const Tour = require('../models/tourModel');
+const factory = require('./handlerFactory');
 
 exports.getCheckoutSession = catchAsync(async (req, res, next) => {
   // 1) Get currently booked tour
@@ -18,12 +19,6 @@ exports.getCheckoutSession = catchAsync(async (req, res, next) => {
     productCount: [1],
     productPrice: [tour.price]
   };
-  /* console.log({ signatureObj });
-  console.log(
-    `${Object.values(signatureObj)}`
-      .replaceAll(/\[|\]/g, '')
-      .replaceAll(',', ';')
-  ); */
   const signatureString = `${Object.values(signatureObj)}`
     .replaceAll(/\[|\]/g, '')
     .replaceAll(',', ';');
@@ -44,13 +39,7 @@ exports.getCheckoutSession = catchAsync(async (req, res, next) => {
     clientEmail: req.user.email,
     serviceUrl: `${req.protocol}://${req.get('host')}/`
   };
-  /*   const session = express().post(
-    'https://secure.wayforpay.com/pay',
-    (req, res, next) => {
-      req.body = checkoutObj;
-      next();
-    }
-  ); */
+
   const session = await axios({
     method: 'POST',
     url: 'https://api.wayforpay.com/api',

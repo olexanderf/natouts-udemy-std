@@ -13814,7 +13814,8 @@ var login = function() {
                         4,
                         (0, _axiosDefault.default)({
                             method: "POST",
-                            url: "http://127.0.0.1:3000/api/v1/users/login",
+                            // url: 'http://127.0.0.1:3000/api/v1/users/login',
+                            url: "http://localhost:3000/api/v1/users/login",
                             data: {
                                 email: email,
                                 password: password
@@ -13867,7 +13868,7 @@ var logout = function() {
                         4,
                         (0, _axiosDefault.default)({
                             method: "GET",
-                            url: "http://127.0.0.1:3000/api/v1/users/logout"
+                            url: "http://localhost:3000/api/v1/users/logout"
                         })
                     ];
                 case 1:
@@ -19003,7 +19004,7 @@ var updateSettings = function() {
                         ,
                         3
                     ]);
-                    url = type === "password" ? "http://127.0.0.1:3000/api/v1/users/updateMyPassword" : "http://127.0.0.1:3000/api/v1/users/updateMe";
+                    url = type === "password" ? "http://localhost:3000/api/v1/users/updateMyPassword" : "http://localhost:3000/api/v1/users/updateMe";
                     return [
                         4,
                         (0, _axiosDefault.default)({
@@ -19068,7 +19069,7 @@ var bookTour = function() {
                     ]);
                     return [
                         4,
-                        (0, _axiosDefault.default)("http://127.0.0.1:3000/api/v1/booking/checkout-session/".concat(tourId))
+                        (0, _axiosDefault.default)("http://localhost:3000/api/v1/booking/checkout-session/".concat(tourId))
                     ];
                 case 1:
                     session = _state.sent();
@@ -19098,6 +19099,6 @@ var bookTour = function() {
     };
 }();
 
-},{"@swc/helpers/_/_async_to_generator":"aigmt","@swc/helpers/_/_ts_generator":"b64dK","axios":"2azY5","@parcel/transformer-js/src/esmodule-helpers.js":"cjLfb","./alerts":"l0WSD"}]},["6CeJb"], "6CeJb", "parcelRequire11c7")
+},{"@swc/helpers/_/_async_to_generator":"aigmt","@swc/helpers/_/_ts_generator":"b64dK","axios":"2azY5","./alerts":"l0WSD","@parcel/transformer-js/src/esmodule-helpers.js":"cjLfb"}]},["6CeJb"], "6CeJb", "parcelRequire11c7")
 
 //# sourceMappingURL=index.js.map
