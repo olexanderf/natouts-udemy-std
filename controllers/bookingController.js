@@ -2,6 +2,7 @@ const crypto = require('crypto');
 const { default: axios } = require('axios');
 const catchAsync = require('../utils/catchAsync');
 const Tour = require('../models/tourModel');
+const Booking = require('../models/bookingModel');
 const factory = require('./handlerFactory');
 
 exports.getCheckoutSession = catchAsync(async (req, res, next) => {
@@ -47,15 +48,17 @@ exports.getCheckoutSession = catchAsync(async (req, res, next) => {
       ...checkoutObj
     }
   });
-  // console.log(session);
+
   // 3) Create session as responst
-  // console.log(signatureString);
-  /*   res.status(200).render('stripe', (err, html) => {
-    res.send(session);
-  }); */
+
   res.status(200).json({
     status: 'success',
     data: session.data
-    // data: { signatureString, checkoutObj }
   });
 });
+
+exports.createBooking = factory.createOne(Booking);
+exports.getOneBooking = factory.getOne(Booking);
+exports.getAllBooking = factory.getAll(Booking);
+exports.updateBooking = factory.updateOne(Booking);
+exports.deleteBooking = factory.deleteOne(Booking);
