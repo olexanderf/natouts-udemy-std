@@ -9,6 +9,7 @@ const hpp = require('hpp');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 
+const compression = require('compression');
 const tourRouter = require('./routes/tourRoutes');
 const userRouter = require('./routes/userRoutes');
 const reviewRouter = require('./routes/reviewRouter');
@@ -83,6 +84,8 @@ const limiter = rateLimit({
 });
 
 app.use('/api', limiter);
+
+app.use(compression());
 app.use((req, res, next) => {
   req.requstTime = new Date().toISOString();
   // console.log(req.cookies);
